@@ -1,8 +1,0 @@
-{
-  "name": "AI-First CRM - HCP Module",
-  "description": "An intelligent CRM for logging interactions with Healthcare Professionals using structured forms and an AI conversational agent.",
-  "requestFramePermissions": [
-    "microphone"
-  ],
-  "majorCapabilities": []
-}
