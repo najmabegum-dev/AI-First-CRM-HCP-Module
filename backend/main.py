@@ -1,6 +1,6 @@
 import os
 import json
-from typing import Optional, List
+from typing import Optional
 from datetime import datetime
 from dotenv import load_dotenv
 
@@ -19,7 +19,7 @@ app = FastAPI(title="AI-First CRM — HCP Module", version="1.0.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:5173", "*"],
+    allow_origins=["http://localhost:3000", "http://localhost:5173"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -101,16 +101,23 @@ def create_interaction(body: InteractionBody):
     if not body.time:
         body.time = now.strftime("%H:%M")
 
+    from db import DATABASE_URL
+    is_pg = DATABASE_URL.startswith("postgres")
+
+    sql = """
+        INSERT INTO interactions
+        (user_id, hcp_id, interaction_type, interaction_date, interaction_time,
+         attendees, topics_discussed, materials_shared, samples_distributed,
+         sentiment, outcomes, follow_up_actions)
+        VALUES (1, :hcp_id, :itype, :idate, :itime,
+                :attendees, :topics, :materials, :samples,
+                :sentiment, :outcomes, :followup)
+    """
+    if is_pg:
+        sql += " RETURNING id"
+
     with engine.connect() as conn:
-        result = conn.execute(text("""
-            INSERT INTO interactions
-            (user_id, hcp_id, interaction_type, interaction_date, interaction_time,
-             attendees, topics_discussed, materials_shared, samples_distributed,
-             sentiment, outcomes, follow_up_actions)
-            VALUES (1, :hcp_id, :itype, :idate, :itime,
-                    :attendees, :topics, :materials, :samples,
-                    :sentiment, :outcomes, :followup)
-        """), {
+        result = conn.execute(text(sql), {
             "hcp_id":    body.hcp_id,
             "itype":     body.interaction_type,
             "idate":     body.date,
@@ -123,8 +130,8 @@ def create_interaction(body: InteractionBody):
             "outcomes":  body.outcomes,
             "followup":  json.dumps(body.follow_up_actions),
         })
+        new_id = result.fetchone()[0] if is_pg else result.lastrowid
         conn.commit()
-        new_id = result.lastrowid
     return {"id": new_id, **body.model_dump()}
 
 
