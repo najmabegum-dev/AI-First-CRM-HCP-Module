@@ -24,11 +24,10 @@ try:
     if os.getenv("GROQ_API_KEY"):
         from langchain_groq import ChatGroq
         llm = ChatGroq(
-            api_key=os.getenv("GROQ_API_KEY"),
-            model="llama-3.3-70b-versatile",
+            model="openai/gpt-oss-120b",
             temperature=0,
         )
-        print("Using ChatGroq — llama-3.3-70b-versatile")
+        print("Using ChatGroq — openai/gpt-oss-120b")
     elif os.getenv("GEMINI_API_KEY"):
         from langchain_google_genai import ChatGoogleGenerativeAI
         llm = ChatGoogleGenerativeAI(
