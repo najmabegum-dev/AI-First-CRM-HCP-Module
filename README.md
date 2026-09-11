@@ -34,7 +34,7 @@ The AI agent is equipped with five distinct determinist tools tailored for life-
 ## 🏗️ Technology Stack
 
 **Frontend**
-- React 18
+- React 19
 - Vite
 - Redux Toolkit (State management & synchronization)
 - Tailwind CSS (Google Inter typography)
