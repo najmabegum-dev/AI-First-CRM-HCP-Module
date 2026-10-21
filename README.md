@@ -21,7 +21,7 @@ This module revolutionizes how field reps log interactions with Healthcare Profe
 
 ## 🧠 LangGraph Agent Tools
 
-The AI agent is equipped with five distinct determinist tools tailored for life-science sales activities:
+The AI agent is equipped with five distinct deterministic tools tailored for life-science sales activities:
 
 1. **`log_interaction`**: Ingests raw interaction summaries, strictly validates extracted entities, dynamically resolves HCP names to database IDs, and inserts the record into PostgreSQL.
 2. **`edit_interaction`**: Modifies existing records based on conversational corrections, utilizing reverse-alias mapping to ensure the React UI instantly reflects database column changes.
