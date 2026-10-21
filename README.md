@@ -111,20 +111,32 @@ npm run dev
 ## 📁 Project Structure
 
 ```text
+AI-First-CRM-HCP-Module/
+├── .github/
+│   └── workflows/          # CI pipeline (GitHub Actions)
 ├── backend/
-│   ├── main.py         # FastAPI routing & initialization
-│   ├── agent.py        # LangGraph StateGraph, memory, and Tools
-│   ├── db.py           # SQLAlchemy dialect-agnostic models & initialization
-│   └── requirements.txt
+│   ├── main.py             # FastAPI routing & initialization
+│   ├── agent.py            # LangGraph StateGraph, memory, and tools
+│   ├── db.py               # SQLAlchemy models & initialization
+│   └── requirements.txt    # Python dependencies
+├── docs/
+│   └── demo.gif            # Demo recording
 ├── src/
 │   ├── components/
-│   │   ├── Chat/       # AIChatPanel (Conversational Interface)
-│   │   └── Form/       # InteractionForm (Structured UI)
-│   ├── store/          # Redux slices (chatSlice, interactionSlice)
-│   └── App.tsx         # Dual-screen layout
-├── .env                # Environment variables
-├── package.json        # Frontend & concurrent scripts
-└── vite.config.ts      # Vite proxy configurations
+│   │   ├── Chat/           # AIChatPanel (conversational interface)
+│   │   └── Form/           # InteractionForm (structured UI)
+│   ├── store/              # Redux slices (chatSlice, interactionSlice)
+│   └── App.tsx             # Dual-screen layout
+├── .env.example            # Template for environment variables
+├── .gitignore
+├── LICENSE                 # MIT
+├── README.md
+├── index.html
+├── package.json            # Frontend deps & concurrent dev script
+├── package-lock.json
+├── server.ts               # Express + Vite server for the frontend (port 3000)
+├── tsconfig.json
+└── vite.config.ts          # Vite config & /api proxy to FastAPI (port 8000)
 ```
 
 ---
