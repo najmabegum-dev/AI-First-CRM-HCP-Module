@@ -75,7 +75,13 @@ pip install -r requirements.txt
 
 ### 2. Environment Configuration
 
-Create a `.env` file in the root directory and add your credentials:
+Copy the example file, then open `.env` and add your credentials:
+
+# Mac / Linux
+cp .env.example .env
+
+# Windows
+copy .env.example .env
 ```env
 # Groq API Key for LLM Inference
 GROQ_API_KEY="your_groq_api_key_here"
